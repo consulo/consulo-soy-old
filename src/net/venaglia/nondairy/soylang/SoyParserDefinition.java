@@ -16,7 +16,13 @@
 
 package net.venaglia.nondairy.soylang;
 
+import net.venaglia.nondairy.soylang.elements.factory.SoyPsiElementFactory;
+import net.venaglia.nondairy.soylang.lexer.SoyLexer;
+import net.venaglia.nondairy.soylang.lexer.SoyToken;
+
+import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
+import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
@@ -27,71 +33,95 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
-import net.venaglia.nondairy.soylang.elements.factory.SoyPsiElementFactory;
-import net.venaglia.nondairy.soylang.lexer.SoyLexer;
-import net.venaglia.nondairy.soylang.lexer.SoyToken;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * User: ed
  * Date: Jul 31, 2010
  * Time: 9:39:00 PM
- *
+ * <p/>
  * IntelliJ parser definition for closure templates.
  */
-public class SoyParserDefinition implements ParserDefinition {
+public class SoyParserDefinition implements ParserDefinition
+{
 
-    @NotNull
-    public Lexer createLexer(Project project) {
-        return new SoyLexer();
-    }
+	@Override
+	@NotNull
+	public Lexer createLexer(Project project, @NotNull LanguageVersion languageVersion)
+	{
+		return new SoyLexer();
+	}
 
-    public PsiParser createParser(Project project) {
-        return new SoyParser();
-    }
+	@NotNull
+	@Override
+	public PsiParser createParser(Project project, @NotNull LanguageVersion languageVersion)
+	{
+		return new SoyParser();
+	}
 
-    public IFileElementType getFileNodeType() {
-        return SoyFileType.FILE;
-    }
+	@NotNull
+	@Override
+	public IFileElementType getFileNodeType()
+	{
+		return SoyFileType.FILE;
+	}
 
-    @NotNull
-    public TokenSet getWhitespaceTokens() {
-        return SoyToken.WHITESPACE_TOKENS;
-    }
+	@Override
+	@NotNull
+	public TokenSet getWhitespaceTokens(@NotNull LanguageVersion languageVersion)
+	{
+		return SoyToken.WHITESPACE_TOKENS;
+	}
 
-    @NotNull
-    public TokenSet getCommentTokens() {
-        return SoyToken.COMMENT_TOKENS;
-    }
+	@Override
+	@NotNull
+	public TokenSet getCommentTokens(@NotNull LanguageVersion languageVersion)
+	{
+		return SoyToken.COMMENT_TOKENS;
+	}
 
-    @NotNull
-    public TokenSet getStringLiteralElements() {
-        return SoyToken.STRING_LITERAL_TOKENS;
-    }
+	@Override
+	@NotNull
+	public TokenSet getStringLiteralElements(@NotNull LanguageVersion languageVersion)
+	{
+		return SoyToken.STRING_LITERAL_TOKENS;
+	}
 
-    @NotNull
-    public PsiElement createElement(ASTNode node) {
-        return SoyPsiElementFactory.getInstance().create(node);
-    }
+	@Override
+	@NotNull
+	public PsiElement createElement(ASTNode node)
+	{
+		return SoyPsiElementFactory.getInstance().create(node);
+	}
 
-    public PsiFile createFile(FileViewProvider viewProvider) {
-        return new SoyFile(viewProvider);
-    }
+	@Override
+	public PsiFile createFile(FileViewProvider viewProvider)
+	{
+		return new SoyFile(viewProvider);
+	}
 
-    public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
-        IElementType leftType = left.getElementType();
-        IElementType rightType = right.getElementType();
-        if (SoyToken.LBRACE == leftType) {
-            if (SoyToken.COMMANDS.contains(rightType) || SoyToken.SPECIAL_CHARS.contains(rightType) || SoyToken.DIV == rightType) {
-                return SpaceRequirements.MUST_NOT;
-            }
-        } else if (SoyToken.DIV == leftType) {
-            if (SoyToken.COMMANDS.contains(rightType) || SoyToken.SPECIAL_CHARS.contains(rightType)) {
-                return SpaceRequirements.MUST_NOT;
-            }
-        } else if (SoyToken.WORD_TOKENS.contains(leftType) && SoyToken.WORD_TOKENS.contains(rightType)) {
-            return SpaceRequirements.MUST;
-        }
-        return SpaceRequirements.MAY;
-    }
+	@Override
+	public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right)
+	{
+		IElementType leftType = left.getElementType();
+		IElementType rightType = right.getElementType();
+		if(SoyToken.LBRACE == leftType)
+		{
+			if(SoyToken.COMMANDS.contains(rightType) || SoyToken.SPECIAL_CHARS.contains(rightType) || SoyToken.DIV == rightType)
+			{
+				return SpaceRequirements.MUST_NOT;
+			}
+		}
+		else if(SoyToken.DIV == leftType)
+		{
+			if(SoyToken.COMMANDS.contains(rightType) || SoyToken.SPECIAL_CHARS.contains(rightType))
+			{
+				return SpaceRequirements.MUST_NOT;
+			}
+		}
+		else if(SoyToken.WORD_TOKENS.contains(leftType) && SoyToken.WORD_TOKENS.contains(rightType))
+		{
+			return SpaceRequirements.MUST;
+		}
+		return SpaceRequirements.MAY;
+	}
 }

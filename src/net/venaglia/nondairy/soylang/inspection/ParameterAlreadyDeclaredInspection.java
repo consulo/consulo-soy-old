@@ -16,11 +16,8 @@
 
 package net.venaglia.nondairy.soylang.inspection;
 
-import com.intellij.codeHighlighting.HighlightDisplayLevel;
-import com.intellij.codeInspection.InspectionManager;
-import com.intellij.codeInspection.ProblemDescriptor;
-import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.psi.PsiElement;
+import java.util.List;
+
 import net.venaglia.nondairy.soylang.SoyElement;
 import net.venaglia.nondairy.soylang.SoyFile;
 import net.venaglia.nondairy.soylang.elements.ParameterDefElement;
@@ -29,9 +26,14 @@ import net.venaglia.nondairy.soylang.elements.path.ElementTypePredicate;
 import net.venaglia.nondairy.soylang.elements.path.ParameterPredicate;
 import net.venaglia.nondairy.soylang.elements.path.PsiElementCollection;
 import net.venaglia.nondairy.soylang.elements.path.PsiElementPath;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import com.intellij.codeHighlighting.HighlightDisplayLevel;
+import com.intellij.codeInspection.InspectionManager;
+import com.intellij.codeInspection.LocalQuickFix;
+import com.intellij.codeInspection.ProblemDescriptor;
+import com.intellij.codeInspection.ProblemHighlightType;
+import com.intellij.psi.PsiElement;
 
 /**
  * User: ed
@@ -78,8 +80,8 @@ public class ParameterAlreadyDeclaredInspection extends AbstractSoyInspection {
                 if (!def.isEmpty()) {
                     problems.add(manager.createProblemDescriptor(element,
                                                                  getMessage(parameterName),
+																 LocalQuickFix.EMPTY_ARRAY,
                                                                  ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
-                                                                 null,
                                                                  true));
                 }
             }

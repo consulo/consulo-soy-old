@@ -16,17 +16,18 @@
 
 package net.venaglia.nondairy.soylang;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
-import net.venaglia.nondairy.soylang.elements.*;
-import net.venaglia.nondairy.soylang.elements.factory.ElementClass;
-import org.jetbrains.annotations.NonNls;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import net.venaglia.nondairy.soylang.elements.*;
+import net.venaglia.nondairy.soylang.elements.factory.ElementClass;
+
+import org.jetbrains.annotations.NonNls;
+import com.intellij.lang.Language;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.TokenSet;
 
 /**
  * User: ed
@@ -205,7 +206,7 @@ public final class SoyElement extends IElementType {
     }
 
     private SoyElement(int value, @NonNls String name, Language l) {
-        super(name, l, true);
+        super(name, l);
         this.value = (short)value;
         this.name = name;
         ALL_ELEMENTS_BY_VALUE.put(this.value, this);

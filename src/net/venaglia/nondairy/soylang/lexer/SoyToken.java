@@ -16,20 +16,21 @@
 
 package net.venaglia.nondairy.soylang.lexer;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
-import com.intellij.psi.xml.XmlTokenType;
-import net.venaglia.nondairy.soylang.SoyLanguage;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import net.venaglia.nondairy.soylang.SoyLanguage;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.lang.Language;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.TokenSet;
+import com.intellij.psi.xml.XmlTokenType;
 
 /**
  * User: ed
@@ -331,7 +332,7 @@ public final class SoyToken extends IElementType {
                      @NotNull @NonNls String name,
                      @Nullable @NonNls String command,
                      Language l) {
-        super(name, l, true);
+        super(name, l);
         this.value = (short)value;
         this.name = name;
         this.command = command;
