@@ -15,20 +15,10 @@
   -->
 
 <idea-plugin version="2">
-	<name>Non-Dairy Soy Plugin</name>
-	<description>
-		<![CDATA[
-        <p>A plugin to help with the development of Closure Templates
-        (soy files).</p>
-        <p>This plugin includes support for syntax highlighting, code folding,
-        find usages and go to declaration on parameters and templates, and
-        Structure view.</p>
-        <p>This plugin is still under development, and updates are subject to
-        my available free time.</p>
-        ]]>
-	</description>
+	<name>Soy</name>
 	<version>0.6.0 (beta)</version>
 	<vendor>Ed Venaglia</vendor>
+	<category>Template Languages</category>
 
 	<application-components>
 		<component>
