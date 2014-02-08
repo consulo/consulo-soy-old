@@ -16,6 +16,10 @@
 
 package net.venaglia.nondairy.soylang;
 
+import net.venaglia.nondairy.soylang.structure.SoyRootTreeElement;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.structureView.StructureViewBuilder;
 import com.intellij.ide.structureView.StructureViewModel;
 import com.intellij.ide.structureView.StructureViewTreeElement;
@@ -23,39 +27,44 @@ import com.intellij.ide.structureView.TextEditorBasedStructureViewModel;
 import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.PsiStructureViewFactory;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiFile;
-import net.venaglia.nondairy.soylang.structure.SoyRootTreeElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * User: ed
  * Date: Aug 27, 2010
  * Time: 7:12:33 PM
- *
+ * <p/>
  * Factory class to build the soy file structure view.
  */
-public class SoyStructureViewFactory implements PsiStructureViewFactory {
+public class SoyStructureViewFactory implements PsiStructureViewFactory
+{
 
-    @Override
-    @Nullable
-    public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile) {
-        ASTNode node = psiFile.getNode();
-        if (node == null || node.getElementType() != SoyFileType.FILE || !(psiFile instanceof SoyFile)) {
-            return null;
-        }
-        return new TreeBasedStructureViewBuilder() {
-            @NotNull
-            @Override
-            public StructureViewModel createStructureViewModel() {
-                return new TextEditorBasedStructureViewModel(psiFile) {
-                    @NotNull
-                    @Override
-                    public StructureViewTreeElement getRoot() {
-                        return new SoyRootTreeElement((SoyFile)psiFile);
-                    }
-                };
-            }
-        };
-    }
+	@Override
+	@Nullable
+	public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile)
+	{
+		ASTNode node = psiFile.getNode();
+		if(node == null || node.getElementType() != SoyFileType.FILE || !(psiFile instanceof SoyFile))
+		{
+			return null;
+		}
+		return new TreeBasedStructureViewBuilder()
+		{
+			@NotNull
+			@Override
+			public StructureViewModel createStructureViewModel(Editor editor)
+			{
+				return new TextEditorBasedStructureViewModel(psiFile)
+				{
+					@NotNull
+					@Override
+					public StructureViewTreeElement getRoot()
+					{
+						return new SoyRootTreeElement((SoyFile) psiFile);
+					}
+				};
+			}
+		};
+	}
 }
