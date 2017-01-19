@@ -16,25 +16,24 @@
 
 package net.venaglia.nondairy.soylang;
 
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.PsiBuilder;
+import com.intellij.lang.PsiParser;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.TokenSet;
+import consulo.lang.LanguageVersion;
+import net.venaglia.nondairy.soylang.lexer.SoyToken;
+import net.venaglia.nondairy.soylang.parser.PsiBuilderTokenSource;
+import net.venaglia.nondairy.soylang.parser.SoyStructureParser;
+import net.venaglia.nondairy.soylang.parser.TrackedPsiBuilderTokenSource;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
-
-import net.venaglia.nondairy.soylang.lexer.SoyToken;
-import net.venaglia.nondairy.soylang.parser.PsiBuilderTokenSource;
-import net.venaglia.nondairy.soylang.parser.SoyStructureParser;
-import net.venaglia.nondairy.soylang.parser.TrackedPsiBuilderTokenSource;
-
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.LanguageVersion;
-import com.intellij.lang.PsiBuilder;
-import com.intellij.lang.PsiParser;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
 
 /**
  * User: ed

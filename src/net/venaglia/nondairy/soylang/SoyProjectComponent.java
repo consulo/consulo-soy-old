@@ -16,7 +16,11 @@
 
 package net.venaglia.nondairy.soylang;
 
-import com.intellij.ide.startup.StartupManagerEx;
+import net.venaglia.nondairy.soylang.cache.SoyCacheUpdater;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.components.AbstractProjectComponent;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
@@ -32,10 +36,6 @@ import com.intellij.openapi.vfs.VirtualFileAdapter;
 import com.intellij.openapi.vfs.VirtualFileEvent;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.psi.PsiElement;
-import net.venaglia.nondairy.soylang.cache.SoyCacheUpdater;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * User: ed
@@ -62,13 +62,6 @@ public class SoyProjectComponent extends AbstractProjectComponent implements Per
 
     @Override
     public void projectOpened() {
-        final StartupManagerEx startupManager = StartupManagerEx.getInstanceEx(myProject);
-        startupManager.registerStartupActivity(new Runnable() {
-            @Override
-            public void run() {
-                startupManager.registerCacheUpdater(soyCacheUpdater);
-            }
-        });
         EditorFactory.getInstance().getEventMulticaster().addDocumentListener(new DocumentAdapter() {
             @Override
             public void documentChanged(DocumentEvent event) {

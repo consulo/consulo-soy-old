@@ -14,11 +14,13 @@
   ~    limitations under the License.
   -->
 
-<idea-plugin version="2">
+<idea-plugin>
 	<name>Soy</name>
-	<version>0.6.0 (beta)</version>
+	<version>SNAPSHOT</version>
 	<vendor>Ed Venaglia</vendor>
 	<category>Template Languages</category>
+	<depends>com.intellij.xml</depends>
+	<depends optional="true">com.intellij.spellchecker</depends>
 
 	<application-components>
 		<component>
@@ -32,7 +34,6 @@
 		</component>
 	</project-components>
 
-	<depends optional="true">com.intellij.spellchecker</depends>
 
 	<extensions defaultExtensionNs="com.intellij.spellchecker">
 		<support language="ClosureTemplate" implementationClass="net.venaglia.nondairy.spellchecker.SoySpellcheckingStrategy"/>

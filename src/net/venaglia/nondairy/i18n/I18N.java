@@ -17,58 +17,14 @@
 package net.venaglia.nondairy.i18n;
 
 import org.jetbrains.annotations.NonNls;
+import consulo.lombok.annotations.Bundle;
 
-import java.text.MessageFormat;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-/**
- * User: ed
- * Date: Jul 31, 2010
- * Time: 4:21:08 PM
- *
- * Primary class to serve up localized resources.
- */
-public class I18N {
-
-    @NonNls
-    static final String RESOURCE_BUNDLE_NAME = "nondairy";
-
-    private static final I18N INSTANCE = new I18N();
-
-    private final Locale locale;
-
-    private Map<String,MessageFormat> valuesByKey;
-
-    private I18N() {
-        locale = Locale.getDefault();
-        reload();
-    }
-
-    public final void reload() {
-        Package pkg = getClass().getPackage();
-        ResourceBundle bundle = ResourceBundle.getBundle(pkg.getName() + "." + RESOURCE_BUNDLE_NAME,
-                                                         locale,
-                                                         getClass().getClassLoader());
-        Enumeration<String> keyEnum = bundle.getKeys();
-        Map<String,MessageFormat> valuesByKey = new HashMap<String,MessageFormat>();
-        while (keyEnum.hasMoreElements()) {
-            String key = keyEnum.nextElement();
-            valuesByKey.put(key, new MessageFormat(bundle.getString(key), locale));
-        }
-        this.valuesByKey = Collections.unmodifiableMap(valuesByKey);
-    }
-
-    @NonNls
-    public static String msg(@NonNls String key, Object... args) {
-        MessageFormat message = INSTANCE.valuesByKey.get(key);
-        if (message == null) {
-            return key;
-        }
-        return message.format(args);
-    }
+@Bundle
+public class I18N
+{
+	@NonNls
+	public static String msg(@NonNls String key, Object... args)
+	{
+		return message(key, args);
+	}
 }

@@ -16,7 +16,26 @@
 
 package net.venaglia.nondairy.soylang.cache;
 
-import com.intellij.ide.caches.CacheUpdater;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import net.venaglia.nondairy.i18n.I18N;
+import net.venaglia.nondairy.soylang.ModuleRef;
+import net.venaglia.nondairy.soylang.NamespaceRef;
+import net.venaglia.nondairy.soylang.SoyFileType;
+import net.venaglia.nondairy.soylang.elements.TreeNavigator;
+import net.venaglia.nondairy.util.SimpleRef;
+import net.venaglia.nondairy.util.TinySet;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.ide.caches.FileContent;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.module.Module;
@@ -25,34 +44,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.search.FilenameIndex;
-import net.venaglia.nondairy.i18n.I18N;
-import net.venaglia.nondairy.soylang.ModuleRef;
-import net.venaglia.nondairy.soylang.NamespaceRef;
-import net.venaglia.nondairy.soylang.SoyFileType;
-import net.venaglia.nondairy.soylang.elements.TreeNavigator;
-import net.venaglia.nondairy.util.SimpleRef;
-import net.venaglia.nondairy.util.TinySet;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.NoSuchElementException;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * User: ed
@@ -60,8 +51,11 @@ import java.util.regex.Pattern;
  * Time: 7:50 PM
  *
  * CacheUpdater implementation used to initialize the soy template cache.
+ *
+ * Need rewrite to stubs
  */
-public class SoyCacheUpdater implements CacheUpdater {
+@Deprecated
+public class SoyCacheUpdater  {
 
     @NonNls
     private static final String MATCH_COMMANDS_PATTERN = "\\{(delpackage|namespace|alias|deltemplate|template)\\s+\\.?([a-z0-9_.]+)";
@@ -91,32 +85,24 @@ public class SoyCacheUpdater implements CacheUpdater {
         }
     }
 
-    @Override
+    //@Override
     public int getNumberOfPendingUpdateJobs() {
         return 0;
     }
 
-    @Override
+    //@Override
     public VirtualFile[] queryNeededFiles(ProgressIndicator indicator) {
         String ext = SoyFileType.INSTANCE.getDefaultExtension();
         Collection<VirtualFile> files = FilenameIndex.getAllFilesByExt(project, ext);
         return files.toArray(new VirtualFile[files.size()]);
     }
 
-    @Override
+    //@Override
     public void processFile(FileContent fileContent) {
         if (disposed) {
             return;
         }
         updateCache(fileContent.getVirtualFile());
-    }
-
-    @Override
-    public void updatingDone() {
-    }
-
-    @Override
-    public void canceled() {
     }
 
     public void updateCache(@NotNull VirtualFile file) {
