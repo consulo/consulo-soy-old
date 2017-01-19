@@ -15,6 +15,7 @@
   -->
 
 <idea-plugin>
+	<id>consulo.soy</id>
 	<name>Soy</name>
 	<version>SNAPSHOT</version>
 	<vendor>Ed Venaglia</vendor>

@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
   <artifact build-on-make="true" name="dist">
-    <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts/dist</output-path>
     <root id="root">
-      <element id="directory" name="soy">
+      <element id="directory" name="consulo.soy">
         <element id="directory" name="lib">
-          <element id="zip-archive" name="soy.jar">
+          <element id="zip-archive" name="consulo.soy.jar">
             <element id="module-production-resource-output" name="consulo-soy" />
             <element id="module-output" name="consulo-soy" />
           </element>
