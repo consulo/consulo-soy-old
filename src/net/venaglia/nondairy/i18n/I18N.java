@@ -17,12 +17,30 @@
 package net.venaglia.nondairy.i18n;
 
 import org.jetbrains.annotations.NonNls;
-import consulo.lombok.annotations.Bundle;
+import org.jetbrains.annotations.PropertyKey;
+import com.intellij.AbstractBundle;
 
-@Bundle
-public class I18N
+public class I18N extends AbstractBundle
 {
+	private static final I18N ourInstance = new I18N();
+
+	private I18N()
+	{
+		super("messages.I18N");
+	}
+
+	public static String message(@PropertyKey(resourceBundle = "messages.I18N") String key)
+	{
+		return ourInstance.getMessage(key);
+	}
+
+	public static String message(@PropertyKey(resourceBundle = "messages.I18N") String key, Object... params)
+	{
+		return ourInstance.getMessage(key, params);
+	}
+
 	@NonNls
+	@Deprecated
 	public static String msg(@NonNls String key, Object... args)
 	{
 		return message(key, args);
