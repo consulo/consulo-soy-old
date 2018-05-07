@@ -44,11 +44,6 @@ public class SoyColorsAndFontsPage implements ColorSettingsPage {
         return I18N.msg("syntax.color_editor.title");
     }
 
-    @Nullable
-    public Icon getIcon() {
-        return SoyIcons.FILE;
-    }
-
     @NotNull
     public AttributesDescriptor[] getAttributeDescriptors() {
         return ATTRS;

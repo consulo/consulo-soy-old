@@ -16,9 +16,10 @@
 
 package net.venaglia.nondairy.soylang.icons;
 
-import com.intellij.openapi.util.IconLoader;
+import javax.swing.Icon;
 
-import javax.swing.*;
+import com.intellij.openapi.util.IconLoader;
+import consulo.ui.image.Image;
 
 /**
  * User: ed
@@ -29,7 +30,7 @@ import javax.swing.*;
  */
 public interface SoyIcons {
 
-    public static final Icon FILE = IconLoader.getIcon("/net/venaglia/nondairy/soylang/icons/soy.png");
+    public static final Image FILE = IconLoader.getIcon("/net/venaglia/nondairy/soylang/icons/soy.png");
 
     public static final Icon NAMESPACE = IconLoader.getIcon("/net/venaglia/nondairy/soylang/icons/soy-namespace.png");
 

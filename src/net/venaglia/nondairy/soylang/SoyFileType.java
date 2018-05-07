@@ -18,6 +18,8 @@ package net.venaglia.nondairy.soylang;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.psi.tree.IFileElementType;
+import consulo.ui.image.Image;
+
 import net.venaglia.nondairy.i18n.I18N;
 import net.venaglia.nondairy.soylang.icons.SoyIcons;
 import org.jetbrains.annotations.NotNull;
@@ -56,7 +58,7 @@ public class SoyFileType extends LanguageFileType {
         return "soy";
     }
 
-    public Icon getIcon() {
+    public Image getIcon() {
         return SoyIcons.FILE;
     }
 
